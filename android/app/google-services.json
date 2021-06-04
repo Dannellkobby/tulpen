@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "823493030945",
+    "project_id": "de-restaurant",
+    "storage_bucket": "de-restaurant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823493030945:android:9e84e8a01e8705e0831f60",
+        "android_client_info": {
+          "package_name": "co.desense.restaurant.tulpen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823493030945-6qu1ks4m0sudt4g9nd6r7bov04novn2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.desense.restaurant.tulpen",
+            "certificate_hash": "71724ae754b3281053947cfa9acc5d71f63aead7"
+          }
+        },
+        {
+          "client_id": "823493030945-pd9j9ktr9bjp1h4h1qbte1b91eem9usj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw9xM-_OLOeb9xzV5_1WSgpYm8mzG00LY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823493030945-pd9j9ktr9bjp1h4h1qbte1b91eem9usj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
