@@ -25,14 +25,17 @@ class MenuCategory extends StatelessWidget {
     MenuCategoryItem('Appetizer', 'assets/icons/barbecue.svg', '0'),
     MenuCategoryItem('Main dishes', 'assets/icons/fried-rice.svg', '1'),
     MenuCategoryItem('Salads', 'assets/icons/salad copy.svg', '2'),
-    MenuCategoryItem('Soups', 'assets/icons/soup_1.svg', '3'),
-    MenuCategoryItem('Side dishes', 'assets/icons/chicken-leg.svg', '4'),
-    MenuCategoryItem('Desserts', 'assets/icons/apple.svg', '5'),
-    MenuCategoryItem('Drinks', 'assets/icons/cocktail.svg', '6'),
+    // MenuCategoryItem('Soups', 'assets/icons/soup_1.svg', '3'),
+    // MenuCategoryItem('Side dishes', 'assets/icons/chicken-leg.svg', '4'),
+    MenuCategoryItem('Desserts', 'assets/icons/apple.svg', '3'),
+    MenuCategoryItem('Wines', 'assets/icons/cocktail.svg', '4'),
   ];
+
+  final void Function(dynamic i)? onTap;
 
   MenuCategory({
     Key? key,
+    this.onTap,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,48 +47,48 @@ class MenuCategory extends StatelessWidget {
         children: categories.map((i) {
           return InkWell(
             onTap: () {
-              NavigationController.to.currentCategoryIndex.value = i.key;
+              onTap!(int.tryParse(i.key));
+              // NavigationController.to.currentCategoryIndex.value = i.key;
             },
             highlightColor: Colours.light,
             borderRadius: BorderRadius.circular(22),
-            child: Obx(
-              () => Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 64,
-                    width: 64,
-                    padding: const EdgeInsets.all(14),
-                    alignment: Alignment.center,
-                    child: SvgPicture.asset(
-                      i.image,
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colours.light,
-                        boxShadow: NavigationController.to.currentCategoryIndex.value == i.key
-                            ? [
-                                BoxShadow(
-                                  color: Colours.grey.withOpacity(0.82),
-                                  blurRadius: 4,
-                                  offset: const Offset(2, 2),
-                                )
-                              ]
-                            : null,
-                        borderRadius: const BorderRadius.all(Radius.circular(22))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 64,
+                  width: 64,
+                  padding: const EdgeInsets.all(14),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    i.image,
                   ),
-                  SizedBox(
-                    width: 80,
-                    child: Text(
-                      i.title,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      style: Get.textTheme.caption
-                          ?.copyWith(color: NavigationController.to.currentCategoryIndex.value == i.key ? Colours.dark : Colours.grey),
-                    ),
-                  )
-                ],
-              ),
+                  decoration: BoxDecoration(
+                      color: Colours.light,
+                      // boxShadow: NavigationController.to.currentCategoryIndex.value == i.key
+                      boxShadow: false
+                          ? [
+                              BoxShadow(
+                                color: Colours.grey.withOpacity(0.82),
+                                blurRadius: 4,
+                                offset: const Offset(2, 2),
+                              )
+                            ]
+                          : null,
+                      borderRadius: const BorderRadius.all(Radius.circular(22))),
+                ),
+                SizedBox(
+                  width: 80,
+                  child: Text(
+                    i.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    style: Get.textTheme.caption?.copyWith(
+                        color: /*NavigationController.to.currentCategoryIndex.value == i.key */ false ? Colours.dark : Colours.grey),
+                  ),
+                )
+              ],
             ),
           );
         }).toList(),

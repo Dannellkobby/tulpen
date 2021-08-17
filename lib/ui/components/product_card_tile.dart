@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -11,7 +12,7 @@ import 'package:tulpen/controllers/navigation_controller.dart';
 import 'package:tulpen/models/menu_item.dart';
 import 'package:tulpen/statics/colours.dart';
 import 'package:tulpen/statics/strings.dart';
-import 'package:tulpen/ui/components/add_to_list.dart';
+import 'package:tulpen/ui/components/add_to_cart.dart';
 
 final Uint8List kTransparentImage = Uint8List.fromList(<int>[
   0x89,
@@ -82,6 +83,7 @@ final Uint8List kTransparentImage = Uint8List.fromList(<int>[
 
 class ProductCardTile extends StatelessWidget {
   final MenuItem menuItem;
+
   const ProductCardTile(Key key, this.menuItem) : super(key: key);
 
   @override
@@ -106,18 +108,27 @@ class ProductCardTile extends StatelessWidget {
               ),
         child: InkWell(
           onTap: () {
-            Get.toNamed(Strings.routeMenuItem, arguments: {'menuItem': menuItem});
+            Get.toNamed(Strings.routeMenuItem, arguments: {'menuItem': menuItem, 'source': 'menus'});
           },
           child: Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 10),
                 child: Hero(
-                  tag: 'meal${menuItem.id}',
-                  child: Image.asset(
-                    menuItem.image,
+                  tag: 'menus${menuItem.key}',
+                  child: CachedNetworkImage(
+                    imageUrl: menuItem.image,
                     fit: BoxFit.fitHeight,
+                    progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                      strokeWidth: 2,
+                    ),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
+                  // child: Image.network(
+                  //   menuItem.image,
+                  //   fit: BoxFit.fitHeight,
+                  // ),
                 ),
               ),
               Padding(
@@ -128,11 +139,11 @@ class ProductCardTile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
                       child: Hero(
-                        tag: 'title${menuItem.id}',
+                        tag: 'title${menuItem.key}',
                         child: Text(
-                          menuItem.title,
+                          menuItem.name,
                           textAlign: TextAlign.center,
-                          maxLines: 2,
+                          maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: Get.textTheme.caption?.copyWith(fontWeight: FontWeight.bold, color: Colours.dark),
                         ),
@@ -141,7 +152,7 @@ class ProductCardTile extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Hero(
-                        tag: 'price${menuItem.id}',
+                        tag: 'price${menuItem.key}',
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -167,7 +178,7 @@ class ProductCardTile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const AddToListButton()
+                    AddToListButton(cartKey: menuItem.key)
                   ],
                 ),
               )

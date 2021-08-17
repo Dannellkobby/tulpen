@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
@@ -6,55 +8,43 @@ import 'package:tulpen/statics/strings.dart';
 
 class NavigationController extends GetxController {
   static NavigationController to = Get.find();
+  static const int routeIndexHome = 0;
+  static const int routeIndexMenu = 1;
+  static const int routeIndexFavs = 2;
+  static const int routeIndexCart = 3;
   var navBarVisible = true.obs;
+  var exitWindowOpen = false;
   var themeA = true.obs;
-  var mainScreen = true.obs;
-  var selectedMenuItem = MenuItem().obs;
-  var currentScreen = Strings.routeMenu.obs;
+  // var mainScreen = true.obs;
+  var selectedMenuItem = MenuItem(key: '').obs;
+  // var currentScreen = Strings.routeMenu.obs;
   var currentIndex = 0.obs;
   var currentCategoryIndex = '0'.obs;
+  Timer exitTimer = Timer(const Duration(milliseconds: 0), () {});
 
   void exitApp() {
     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    ever(currentScreen, (currentScreen) {
-      switch (currentScreen) {
-        case Strings.routeHome:
-          NavigationController.to.currentIndex.value = 0;
-          mainScreen.value = true;
-          break;
-        case Strings.routeMenu:
-          NavigationController.to.currentIndex.value = 1;
-          mainScreen.value = true;
-          break;
-        case Strings.routeFavourites:
-          NavigationController.to.currentIndex.value = 2;
-          mainScreen.value = true;
-          break;
-        case Strings.routeCart:
-          NavigationController.to.currentIndex.value = 3;
-          mainScreen.value = true;
-          break;
-        default:
-          mainScreen.value = false;
-          break;
-      }
+  openExitWindow() {
+    print('NavigationController.openExitWindow start: $exitWindowOpen');
+    exitWindowOpen = true;
+    exitTimer.cancel();
+    exitTimer = Timer(const Duration(milliseconds: 3000), () {
+      print('NavigationController.openExitWindow end: $exitWindowOpen');
+      exitWindowOpen = false;
     });
   }
 
   String getCurrentScreenName() {
-    switch (currentScreen.value) {
-      case Strings.routeHome:
+    switch (currentIndex.value) {
+      case 0:
         return '';
-      case Strings.routeMenu:
+      case 1:
         return 'Menu';
-      case Strings.routeFavourites:
-        return 'Favs';
-      case Strings.routeCart:
+      case 2:
+        return 'Favourites';
+      case 3:
         return 'Cart';
       default:
         return '';
