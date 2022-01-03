@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:tulpen/models/menu_item.dart';
-import 'package:tulpen/statics/strings.dart';
 
 class NavigationController extends GetxController {
   static NavigationController to = Get.find();
@@ -15,9 +13,7 @@ class NavigationController extends GetxController {
   var navBarVisible = true.obs;
   var exitWindowOpen = false;
   var themeA = true.obs;
-  // var mainScreen = true.obs;
   var selectedMenuItem = MenuItem(key: '').obs;
-  // var currentScreen = Strings.routeMenu.obs;
   var currentIndex = 0.obs;
   var currentCategoryIndex = '0'.obs;
   Timer exitTimer = Timer(const Duration(milliseconds: 0), () {});

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:animate_do/animate_do.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:tulpen/controllers/navigation_controller.dart';
 import 'package:tulpen/statics/colours.dart';
-import 'package:tulpen/statics/strings.dart';
 import 'package:tulpen/ui/screens/carts_screen.dart';
 import 'package:tulpen/ui/screens/favourites_screen.dart';
 import 'package:tulpen/ui/screens/home.dart';
